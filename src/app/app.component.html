@@ -1,0 +1,94 @@
+<nav class="navbar navbar-dark" style="background: #14c0ce">
+  <span class="navbar-brand mb-0 h1">Policias Tracker</span>
+</nav>
+
+<div class="row pad-10">
+
+  <div class="col-8">
+    <h3>Mapa <small class="ml-5 font-weight-bold"
+       style="color:red"
+       *ngIf="siguiendoNombre"
+      >Siguiendo a: {{siguiendoNombre}}</small></h3>
+
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
+        <agm-marker *ngFor="let policia of policias" 
+        [latitude]="policia.lat" 
+        [longitude]="policia.lng"
+        [title]="policia.nombre"
+        [iconUrl]="ImgUrl"
+        [label]="policia.nombre"
+        >
+      
+      
+        <agm-info-window>
+            <strong>Policia: {{policia.nombre}}</strong><br>
+            <strong style="color:brown">Exactitud de Ubicación: {{policia.accuracy}} Metros</strong><br>
+            <strong style="color: red">Velocidad: {{policia.speed}} M/S</strong><br>
+            <strong style="color: green">Altitud: {{policia.altitud}} Metros</strong><br>
+            <strong style="color:blue">Dirección: {{policia.heading}} Grados</strong>
+      </agm-info-window>
+      
+      </agm-marker>
+      </agm-map>
+
+
+  </div>
+
+  <div class="col-4">
+
+      <button class="btn btn-danger btn-block mb-4 mt-4" type="button" *ngIf="apoyo">
+               Solicitud de apoyo
+        </button>
+
+        <div class="list-group mb-4" >
+
+            <a href="#"
+             *ngFor="let policia of apoyo" 
+             class="list-group-item list-group-item-action"
+             (click)="seguir(policia)"
+             style="color: red"
+             >
+  
+            <strong>{{policia.nombre}}</strong> <br>
+            <strong>Gravedad: {{policia.gravedad}}</strong>
+             
+            </a>
+
+            <button 
+            (click)="dejarSeguir()"
+             *ngIf="siguiendoNombre"
+              class="btn btn-primary btn-block">
+               Dejar de seguir
+            </button>
+
+          </div>
+       
+      <button class="btn btn-success btn-block mb-4" type="button" data-toggle="collapse" data-target="#policiaSeguimiento" aria-expanded="false" aria-controls="collapseExample">
+          Policias Activos
+        </button>
+
+      <div class="list-group" class="collapse" id="policiaSeguimiento">
+
+          <a href="#"
+           *ngFor="let policia of policias" 
+           class="list-group-item list-group-item-action"
+           (click)="seguir(policia)"
+           >
+
+           {{policia.nombre}}
+           
+          </a>
+
+          <br>
+
+          <button 
+          (click)="dejarSeguir()"
+           *ngIf="siguiendoNombre"
+            class="btn btn-primary btn-block">
+             Dejar de seguir
+          </button>
+        </div>
+    
+    </div>
+
+</div>
