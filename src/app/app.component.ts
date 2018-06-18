@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
 import { ToastrService } from 'ngx-toastr';
 import { AyudaService } from './servicios/ayuda.service';
 
@@ -61,7 +60,6 @@ export class AppComponent {
   seguir(policia:any){
         this.siguiendo=policia.clave;
         this.siguiendoNombre=policia.nombre;
-
         this.ponerSeguimiento();
   }
 
